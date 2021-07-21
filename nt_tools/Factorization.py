@@ -103,8 +103,8 @@ def factorize_exponent(n: int) -> List[Tuple[int, int]]:
 
     result: List[Tuple[int, int]] = []
 
-    prime: int = None
-    exponent: int = None
+    prime: Optional[int] = None
+    exponent: int = 0
 
     for x in primes_list:
         if prime == x:
@@ -114,5 +114,8 @@ def factorize_exponent(n: int) -> List[Tuple[int, int]]:
                 result.append((prime, exponent))
             prime = x
             exponent = 1
+
+    if prime is not None:
+        result.append((prime, exponent))
 
     return result
