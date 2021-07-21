@@ -1,6 +1,6 @@
 from typing import Optional, Union
 from math import gcd
-from nt_tools.Diophantine import diophantine
+from nt_tools.diophantine import diophantine
 
 # TODO make immutable?
 # TODO floor divide?

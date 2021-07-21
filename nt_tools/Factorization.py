@@ -1,7 +1,7 @@
 from typing import Callable, Optional, List, Tuple
 from random import randint
 from math import gcd
-from nt_tools.ModInteger import *
+from nt_tools.mod_integer import *
 
 def is_prime(x: int, iterations: Optional[int] = None) -> bool:
     """rabin miller algorithm to test primality of a number"""

@@ -1,3 +1,3 @@
-from nt_tools.ModInteger import *
-from nt_tools.Diophantine import *
-from nt_tools.Factorization import *
+from nt_tools.mod_integer import *
+from nt_tools.diophantine import *
+from nt_tools.factorization import *
