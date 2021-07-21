@@ -3,6 +3,7 @@ from math import gcd
 from nt_tools.Diophantine import diophantine
 
 # TODO make immutable?
+# TODO floor divide?
 
 class ModInteger:
     """Mod Integer class that holds value and a mod"""

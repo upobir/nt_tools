@@ -1,5 +1,6 @@
-from typing import Optional
+from typing import Callable, Optional, List, Tuple
 from random import randint
+from math import gcd
 from nt_tools.ModInteger import *
 
 def is_prime(x: int, iterations: Optional[int] = None) -> bool:
@@ -37,3 +38,81 @@ def is_prime(x: int, iterations: Optional[int] = None) -> bool:
             return False
 
     return True
+
+
+def p_adic(x: int, p: int) -> int:
+    """function that returns the p-adic value of x, i.e. maximum exponent of p that divides x"""
+    exponent: int = 0
+    while x % p == 0:
+        x //= p
+        exponent += 1
+    
+    return exponent
+
+def pollard_rho(n: int) -> int:
+    """function to return a divisor of n, unless n is prime or 1, the divisor should be proper"""
+    if n <= 0:
+        raise Exception("'{}' is non-positive".format(n))
+
+    if n < 3:
+        return n
+
+    if n % 2 == 0:
+        return 2
+
+    X: int = 2
+    c: int = 1
+    f: Callable[[int], int] = lambda input: (input*input + c) %n
+
+    x: int = 0
+    y: int = 0
+    g: int = 1
+
+    while g == 1:
+        x = f(x)
+        y = f(f(y))
+        g = gcd(x-y, n)
+
+        if x == y:
+            c = randint(1, n-1)
+            x = X
+            y = f(X)
+            g = 1
+
+    return g
+
+def factorize(n: int) -> List[int]:
+    """function that factorizes x and returns a list of primes"""
+    if n <= 0:
+        raise Exception("'{}' is non-positive".format(n))
+
+    if n == 1:
+        return []
+    if is_prime(n):
+        return [n]
+    else:
+        d: int = pollard_rho(n)
+        return sorted(factorize(d) + factorize(n//d))
+
+def factorize_exponent(n: int) -> List[Tuple[int, int]]:
+    """function that factorizes x and returns a list of tuples (prime, exponent)"""
+    if n <= 0:
+        raise Exception("'{}' is non-positive".format(n))
+
+    primes_list: List[int] = factorize(n)
+
+    result: List[Tuple[int, int]] = []
+
+    prime: int = None
+    exponent: int = None
+
+    for x in primes_list:
+        if prime == x:
+            exponent += 1
+        else:
+            if prime is not None:
+                result.append((prime, exponent))
+            prime = x
+            exponent = 1
+
+    return result
