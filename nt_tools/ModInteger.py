@@ -1,4 +1,6 @@
 from typing import Optional, Union
+from math import gcd
+from nt_tools.Diophantine import diophantine
 
 # TODO make immutable?
 
@@ -38,7 +40,7 @@ class ModInteger:
         return ModInteger(self.value+m.value, self.mod)
 
     def __sub__(self, m: Union[int, "ModInteger"]) -> "ModInteger":
-        """subtraction operator, integer of ModInteger can be added"""
+        """subtraction operator, integer of ModInteger can be subtracted"""
         if isinstance(m, int):
             m = ModInteger(m, self.mod)
         if self.mod != m.mod:
@@ -46,11 +48,44 @@ class ModInteger:
         return ModInteger(self.value-m.value, self.mod)
 
     def __mul__(self, m: Union[int, "ModInteger"]) -> "ModInteger":
-        """multiplication operator, integer of ModInteger can be added"""
+        """multiplication operator, integer of ModInteger can be multiplied"""
         if isinstance(m, int):
             m = ModInteger(m, self.mod)
         if self.mod != m.mod:
             raise Exception("mods '{}' and '{}' do not match".format(self.mod, m.mod))
         return ModInteger(self.value*m.value, self.mod)
+
+    def is_invertible(self) -> bool:
+        """function to check if mod integer is invertible in current mod"""
+        return gcd(self.value, self.mod) == 1
+
+    def inverse(self) -> "ModInteger":
+        """get inverse for mod integer"""
+        x, _, g = diophantine(self.value, self.mod)
+        if g != 1:
+            raise Exception("'{}' is not invertible w.r.t. mod '{}'".format(self.value, self.mod))
+        
+        return ModInteger(x, self.mod)
+
+    def __truediv__(self, m: Union[int, "ModInteger"]) -> "ModInteger":
+        """division operator, integer of ModInteger can be divided"""
+        if isinstance(m, int):
+            m = ModInteger(m, self.mod)
+        if self.mod != m.mod:
+            raise Exception("mods '{}' and '{}' do not match".format(self.mod, m.mod))
+
+        return self * m.inverse()
+
+    def __pow__(self, exponent: int) -> "ModInteger":
+        """Integer Exponentiation"""
+        if exponent == 0:
+            return ModInteger(1, self.mod)
+        elif exponent > 0:
+            result: "ModInteger" = (self*self) ** (exponent // 2)
+            if exponent % 2 == 1:
+                result = result * self
+            return result
+        else:
+            return self.inverse() ** (-exponent)
 
 M = ModInteger
