@@ -45,6 +45,32 @@ class TestModInteger(unittest.TestCase):
         self.assertEqual(repr(x), '< 12 (mod 111)>')
         self.assertEqual(str(x), '12')
 
+    def test_equality(self) -> None:
+        """test equality and non-equality"""
+        x: ModInteger = M(1, 100)
+        y: ModInteger = M(2, 99)
+
+        self.assertFalse(x == y)
+        self.assertTrue(x != y)
+
+        y = M(2, 100)
+
+        self.assertFalse(x == y)
+        self.assertTrue(x != y)
+
+        y = M(1, 99)
+
+        self.assertFalse(x == y)
+        self.assertTrue(x != y)
+
+        y = M(1, 100)
+
+        self.assertTrue(x == y)
+        self.assertFalse(x != y)
+
+        self.assertFalse(x == 1)
+        self.assertTrue(x != 1)
+
     def test_add(self) -> None:
         """test addition"""
         x: ModInteger
@@ -66,3 +92,31 @@ class TestModInteger(unittest.TestCase):
 
         with self.assertRaises(Exception):
             x+y
+
+    def test_subtract(self) -> None:
+        """test subtraction"""
+        x: ModInteger
+        y: ModInteger
+
+        x = M(12, 100)
+        y = M(30, 100)
+
+        z: ModInteger = y-x
+        self.modint_equal(z, 18, 100)
+
+        z= x-y
+        self.modint_equal(z, 82, 100)
+
+        z = x - 1
+        self.modint_equal(z, 11, 100)
+
+        z = x - (-1)
+        self.modint_equal(z, 13, 100)
+
+        y = M(1, 99)
+
+        with self.assertRaises(Exception):
+            x-y
+
+    
+

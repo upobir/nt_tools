@@ -32,6 +32,12 @@ class ModInteger:
         """string operator to print value"""
         return str(self.value)
 
+    def __eq__(self, o: object) -> bool:
+        """equality operator for two mod integers"""
+        if isinstance(o, ModInteger):
+            return self.value == o.value and self.mod == o.mod
+        return NotImplemented
+
     def __add__(self, m: Union[int, "ModInteger"]) -> "ModInteger":
         """addition operator, integer of ModInteger can be added"""
         if isinstance(m, int):
