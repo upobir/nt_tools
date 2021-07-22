@@ -118,5 +118,26 @@ class TestModInteger(unittest.TestCase):
         with self.assertRaises(Exception):
             x-y
 
-    
+    def test_multiplication(self) -> None:
+        """test multiplication"""
+        x: ModInteger
+        y: ModInteger
+
+        x = M(12, 101)
+        y = M(30, 101)
+
+        z: ModInteger
+        z = x*y
+        self.modint_equal(z, 57, 101)
+
+        z = x * 50
+        self.modint_equal(z, 95, 101)
+
+        z = x * (-50)
+        self.modint_equal(z, 6, 101)
+
+        y = M(1, 99)
+
+        with self.assertRaises(Exception):
+            x * y
 

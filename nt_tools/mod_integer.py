@@ -95,4 +95,8 @@ class ModInteger:
         else:
             return self.inverse() ** (-exponent)
 
+    def copy(self) -> "ModInteger":
+        """return a copy of modinteger"""
+        return ModInteger(self.value, self.mod)
+
 M = ModInteger
