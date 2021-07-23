@@ -1,4 +1,22 @@
-from nt_tools.factorization import factorize_exponent
+from nt_tools.factorization import factorize, factorize_exponent
+
+def count_of_prime_factors(n: int) -> int:
+    """return count of prime factor (possible duplicate) of n"""
+    if(n <= 0):
+        raise Exception("'{}' is non-positive".format(n))
+
+    return len(factorize(n))
+
+Omega = count_of_prime_factors
+
+def count_of_distinct_prime_factors(n: int) -> int:
+    """return count of distinct prime factor of n"""
+    if(n <= 0):
+        raise Exception("'{}' is non-positive".format(n))
+
+    return len(factorize_exponent(n))
+
+omega = count_of_distinct_prime_factors
 
 def count_of_divisors(n: int) -> int:
     """returns count of divisors of n"""
