@@ -1,4 +1,5 @@
 import unittest
+from nt_tools import mod_integer
 from nt_tools.mod_integer import *
 
 class TestModInteger(unittest.TestCase):
@@ -140,4 +141,58 @@ class TestModInteger(unittest.TestCase):
 
         with self.assertRaises(Exception):
             x * y
+
+    def test_division(self) -> None:
+        """test inverse, division"""
+
+        x: ModInteger
+
+        x = M(31, 100)
+        self.assertTrue(x.is_invertible())
+
+        x = M(25, 100)
+        self.assertFalse(x.is_invertible())
+
+        x = M(0, 100)
+        self.assertFalse(x.is_invertible())
+
+        x = M(31, 100)
+        y: ModInteger = x.inverse()
+
+        self.modint_equal(x*y, 1, 100)
+
+        y = M(27, 100)
+
+        z: ModInteger = x / y
+
+        self.modint_equal(z*y, 31, 100)
+
+        y = M(27, 128)
+        with self.assertRaises(Exception):
+            x / y
+
+        y = M(2, 100)
+        with self.assertRaises(Exception):
+            x / y
+
+    def test_power(self) -> None:
+        """test power"""
+        x: ModInteger = M(10, 107)
+
+        for i in range(0, 10):
+            y: ModInteger = x ** i
+            z: ModInteger = M(x.value ** i, x.mod)
+
+            self.modint_equal(y, z.value, z.mod)
+
+        xinv: ModInteger = x.inverse()
+        for i in range(-10, 0):
+            y = x ** i
+            z = M(xinv.value ** -i, xinv.mod)
+
+            self.modint_equal(y, z.value, z.mod)
+
+        x = M(10, 100)
+        with self.assertRaises(Exception):
+            x ** -1
 

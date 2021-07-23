@@ -1,6 +1,6 @@
 from typing import Optional, Union
 from math import gcd
-from nt_tools.diophantine import diophantine
+from nt_tools.diophantine import bezout
 
 # TODO make immutable?
 # TODO floor divide?
@@ -68,7 +68,7 @@ class ModInteger:
 
     def inverse(self) -> "ModInteger":
         """get inverse for mod integer"""
-        x, _, g = diophantine(self.value, self.mod)
+        x, _, g = bezout(self.value, self.mod)
         if g != 1:
             raise Exception("'{}' is not invertible w.r.t. mod '{}'".format(self.value, self.mod))
         
