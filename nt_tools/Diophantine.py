@@ -1,6 +1,5 @@
 from typing import Tuple, Optional
-from math import lcm
-# import nt_tools.mod_integer as m
+from math import gcd
 from nt_tools.mod_integer import *
 
 def bezout(a: int, b: int) -> Tuple[int, int, int]:
@@ -13,6 +12,18 @@ def bezout(a: int, b: int) -> Tuple[int, int, int]:
 
     return y, x-y*(a//b), g
 
+def lcm(a: int, b: int) -> int:
+    """return positive lcm of two numbers, needed for python < 3.9"""
+    if a == 0 and b == 0:
+        raise Exception("both input are 0")
+
+    if a < 0:
+        a = -a
+    if b < 0:
+        b = -b
+
+    
+    return a * (b//gcd(a, b))
 
 
 def crt(*args: "ModInteger") -> Optional["ModInteger"]:
