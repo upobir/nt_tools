@@ -6,7 +6,7 @@ from nt_tools.mod_integer import *
 def is_prime(x: int, iterations: Optional[int] = None) -> bool:
     """rabin miller algorithm to test primality of a number"""
     if x <= 0:
-        raise Exception("'{}' is non-positive".format(x))
+        raise Exception(f"'{x}' is non-positive")
         
     if iterations is None:
         iterations = max(15, x.bit_length())
@@ -52,7 +52,7 @@ def p_adic(x: int, p: int) -> int:
 def pollard_rho(n: int) -> int:
     """function to return a divisor of n, unless n is prime or 1, the divisor should be proper"""
     if n <= 0:
-        raise Exception("'{}' is non-positive".format(n))
+        raise Exception(f"'{n}' is non-positive")
 
     if n < 3:
         return n
@@ -84,7 +84,7 @@ def pollard_rho(n: int) -> int:
 def factorize(n: int) -> List[int]:
     """function that factorizes x and returns a list of primes"""
     if n <= 0:
-        raise Exception("'{}' is non-positive".format(n))
+        raise Exception(f"'{n}' is non-positive")
 
     if n == 1:
         return []
@@ -97,7 +97,7 @@ def factorize(n: int) -> List[int]:
 def factorize_exponent(n: int) -> List[Tuple[int, int]]:
     """function that factorizes x and returns a list of tuples (prime, exponent)"""
     if n <= 0:
-        raise Exception("'{}' is non-positive".format(n))
+        raise Exception(f"'{n}' is non-positive")
 
     primes_list: List[int] = factorize(n)
 

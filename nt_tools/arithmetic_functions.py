@@ -3,7 +3,7 @@ from nt_tools.factorization import factorize, factorize_exponent
 def count_of_prime_factors(n: int) -> int:
     """return count of prime factor (possible duplicate) of n"""
     if(n <= 0):
-        raise Exception("'{}' is non-positive".format(n))
+        raise Exception(f"'{n}' is non-positive")
 
     return len(factorize(n))
 
@@ -12,7 +12,7 @@ Omega = count_of_prime_factors
 def count_of_distinct_prime_factors(n: int) -> int:
     """return count of distinct prime factor of n"""
     if(n <= 0):
-        raise Exception("'{}' is non-positive".format(n))
+        raise Exception(f"'{n}' is non-positive")
 
     return len(factorize_exponent(n))
 
@@ -21,7 +21,7 @@ omega = count_of_distinct_prime_factors
 def count_of_divisors(n: int) -> int:
     """returns count of divisors of n"""
     if(n <= 0):
-        raise Exception("'{}' is non-positive".format(n))
+        raise Exception(f"'{n}' is non-positive")
 
     factorization = factorize_exponent(n)
 
@@ -36,7 +36,7 @@ tau = count_of_divisors
 def sum_of_divisors(n: int) -> int:
     """return sum of divisors of n"""
     if(n <= 0):
-        raise Exception("'{}' is non-positive".format(n))
+        raise Exception(f"'{n}' is non-positive")
 
     factorization = factorize_exponent(n)
 
@@ -51,7 +51,7 @@ sigma = sum_of_divisors
 def mobius(n: int) -> int:
     """returns the mobius function value of a number"""
     if(n <= 0):
-        raise Exception("'{}' is non-positive".format(n))
+        raise Exception(f"'{n}' is non-positive")
 
     factorization = factorize_exponent(n)
 
@@ -68,7 +68,7 @@ mu = mobius
 def totient(n: int) -> int:
     """returns the euler's totient function value of a number"""
     if(n <= 0):
-        raise Exception("'{}' is non-positive".format(n))
+        raise Exception(f"'{n}' is non-positive")
 
     factorization = factorize_exponent(n)
 

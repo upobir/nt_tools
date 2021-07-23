@@ -19,7 +19,7 @@ class ModInteger:
                 mod = ModInteger.default_mod
 
         if mod <= 0:
-            raise Exception("Invalid Mod '{}'".format(mod))
+            raise Exception(f"Invalid Mod '{mod}'")
 
         self.value: int = value % mod
         self.mod: int = mod
@@ -43,7 +43,7 @@ class ModInteger:
         if isinstance(m, int):
             m = ModInteger(m, self.mod)
         if self.mod != m.mod:
-            raise Exception("mods '{}' and '{}' do not match".format(self.mod, m.mod))
+            raise Exception(f"mods '{self.mod}' and '{m.mod}' do not match")
         return ModInteger(self.value+m.value, self.mod)
 
     def __sub__(self, m: Union[int, "ModInteger"]) -> "ModInteger":
@@ -51,7 +51,7 @@ class ModInteger:
         if isinstance(m, int):
             m = ModInteger(m, self.mod)
         if self.mod != m.mod:
-            raise Exception("mods '{}' and '{}' do not match".format(self.mod, m.mod))
+            raise Exception(f"mods '{self.mod}' and '{m.mod}' do not match")
         return ModInteger(self.value-m.value, self.mod)
 
     def __mul__(self, m: Union[int, "ModInteger"]) -> "ModInteger":
@@ -59,7 +59,7 @@ class ModInteger:
         if isinstance(m, int):
             m = ModInteger(m, self.mod)
         if self.mod != m.mod:
-            raise Exception("mods '{}' and '{}' do not match".format(self.mod, m.mod))
+            raise Exception(f"mods '{self.mod}' and '{m.mod}' do not match")
         return ModInteger(self.value*m.value, self.mod)
 
     def is_invertible(self) -> bool:
@@ -70,7 +70,7 @@ class ModInteger:
         """get inverse for mod integer"""
         x, _, g = bezout(self.value, self.mod)
         if g != 1:
-            raise Exception("'{}' is not invertible w.r.t. mod '{}'".format(self.value, self.mod))
+            raise Exception(f"'{self.value}' is not invertible w.r.t. mod '{self.mod}'")
         
         return ModInteger(x, self.mod)
 
@@ -79,7 +79,7 @@ class ModInteger:
         if isinstance(m, int):
             m = ModInteger(m, self.mod)
         if self.mod != m.mod:
-            raise Exception("mods '{}' and '{}' do not match".format(self.mod, m.mod))
+            raise Exception(f"mods '{self.mod}' and '{m.mod}' do not match")
 
         return self * m.inverse()
 

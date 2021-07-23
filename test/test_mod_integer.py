@@ -196,3 +196,5 @@ class TestModInteger(unittest.TestCase):
         with self.assertRaises(Exception):
             x ** -1
 
+        self.modint_equal(x**1, 10, 100)
+

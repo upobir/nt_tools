@@ -5,9 +5,11 @@ from typing import Tuple, List
 class TestDiophantine(unittest.TestCase):
     def setUp(self) ->None:
         __doc__
+        pass
 
     def tearDown(self) -> None:
         __doc__
+        pass
 
     def bezout_check(self, a: int, x: int, b: int, y: int, g: int) -> None:
         self.assertEqual(g, gcd(a, b))
