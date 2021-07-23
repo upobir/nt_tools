@@ -4,13 +4,22 @@ from nt_tools.mod_integer import *
 
 def bezout(a: int, b: int) -> Tuple[int, int, int]:
     """extended euclidean algorithm is performed and x, y, g are returned so that a*x+b*y = g"""
+    if a == 0 and b == 0:
+        raise Exception("both input are 0")
+
     if b == 0:
-        return 1, 0, a
+        if a >= 0:
+            return 1, 0, a
+        else:
+            return -1, 0, -a
     
     g: int; x: int; y: int
     x, y, g = bezout(b, a % b)
 
-    return y, x-y*(a//b), g
+    if g > 0:
+        return y, x-y*(a//b), g
+    else:
+        return -y, -x+y*(a//b), -g
 
 def lcm(a: int, b: int) -> int:
     """return positive lcm of two numbers, needed for python < 3.9"""

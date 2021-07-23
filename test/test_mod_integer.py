@@ -1,8 +1,8 @@
 import unittest
-from nt_tools import mod_integer
 from nt_tools.mod_integer import *
 
 class TestModInteger(unittest.TestCase):
+    
     def setUp(self) ->None:
         __doc__
         pass
