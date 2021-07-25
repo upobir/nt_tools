@@ -30,7 +30,6 @@ def lcm(a: int, b: int) -> int:
         a = -a
     if b < 0:
         b = -b
-
     
     return a * (b//gcd(a, b))
 

@@ -37,3 +37,16 @@ class TestDiophantine(unittest.TestCase):
 
         with self.assertRaises(Exception):
             bezout(0, 0)
+
+    def test_lcm(self) -> None:
+        for i in range(-10, 10):
+            for j in range(-10, 10):
+                if i == 0 and j == 0:
+                    continue
+                l = lcm(i, j)
+                self.assertTrue(l >= 0)
+                self.assertEqual(abs(i*j), gcd(i, j) * l)
+
+
+        with self.assertRaises(Exception):
+            lcm(0, 0)
