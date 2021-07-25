@@ -198,3 +198,16 @@ class TestModInteger(unittest.TestCase):
 
         self.modint_equal(x**1, 10, 100)
 
+    def test_guessIntegerFromModInteger(self):
+        x: ModInteger = M(5, 100)
+        self.assertEqual(guessIntegerFromModInteger(x), 5)
+
+        x = M(-5, 100)
+        self.assertEqual(guessIntegerFromModInteger(x), -5)
+
+        x = M(0, 100)
+        self.assertEqual(guessIntegerFromModInteger(x), 0)
+
+        x = M(50, 100)
+        self.assertEqual(guessIntegerFromModInteger(x), 50)
+

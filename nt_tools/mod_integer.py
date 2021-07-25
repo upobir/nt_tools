@@ -100,3 +100,10 @@ class ModInteger:
         return ModInteger(self.value, self.mod)
 
 M = ModInteger
+
+
+def guessIntegerFromModInteger(x: ModInteger):
+    if x.value * 2 > x.mod:
+        return x.value-x.mod
+    else:
+        return x.value
