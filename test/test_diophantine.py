@@ -1,5 +1,6 @@
 import unittest
 from nt_tools.diophantine import *
+from nt_tools.mod_integer import ModInteger
 from typing import Tuple, List
 
 class TestDiophantine(unittest.TestCase):
@@ -38,6 +39,16 @@ class TestDiophantine(unittest.TestCase):
         with self.assertRaises(Exception):
             bezout(0, 0)
 
+    def brute_lcm(self, a, b):
+        if a == 0 or b == 0:
+            return 0
+
+        m = 1
+        while m % a != 0 or m % b != 0:
+            m += 1
+        
+        return m
+
     def test_lcm(self) -> None:
         for i in range(-10, 10):
             for j in range(-10, 10):
@@ -45,8 +56,28 @@ class TestDiophantine(unittest.TestCase):
                     continue
                 l = lcm(i, j)
                 self.assertTrue(l >= 0)
-                self.assertEqual(abs(i*j), gcd(i, j) * l)
-
+                self.assertEqual(l, self.brute_lcm(i, j))
 
         with self.assertRaises(Exception):
             lcm(0, 0)
+
+    def test_crt(self) -> None:
+        a = 6
+        b = 9
+        c = 14
+
+        for i in range(1, a+1):
+            for j in range(1, b+1):
+                for k in range(1, c+1):
+                    res = crt(ModInteger(i, a), ModInteger(j, b), ModInteger(k, c))
+
+                    if i % 2 == k % 2 and i % 3 == j % 3:
+                        self.assertFalse(res is None, f"{i}, {j}, {k}")
+
+                        m = self.brute_lcm(self.brute_lcm(a, b), c)
+                        self.assertEqual(m, res.mod)
+                        for x in range(0, m):
+                            if x % a == i and x % j == b and x % k == c:
+                                self.assertEqual(x, res.value)
+                    else:
+                        self.assertTrue(res is None)

@@ -33,7 +33,6 @@ def lcm(a: int, b: int) -> int:
     
     return a * (b//gcd(a, b))
 
-
 def crt(*args: "ModInteger") -> Optional["ModInteger"]:
     if len(args) == 0 :
         raise Exception("no argument provided")
