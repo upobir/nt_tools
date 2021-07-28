@@ -33,6 +33,19 @@ def lcm(a: int, b: int) -> int:
     
     return a * (b//gcd(a, b))
 
+def diophantine(a: int, b: int, c: int) -> Optional[Tuple[int, int]]:
+    """return (x, y) such that a*x + b*y = c, or tell if not possible"""
+    if a == 0 and b == 0:
+        return (0, 0) if c == 0 else None
+
+    x, y, g = bezout(a, b)
+
+    if c % g == 0:
+        k: int = c//g
+        return x*k, y*k
+    else:
+        return None
+
 def crt(*args: "ModInteger") -> Optional["ModInteger"]:
     if len(args) == 0 :
         raise Exception("no argument provided")
