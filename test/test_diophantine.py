@@ -81,3 +81,18 @@ class TestDiophantine(unittest.TestCase):
                                 self.assertEqual(x, res.value)
                     else:
                         self.assertTrue(res is None)
+
+    def test_diophantine(self) -> None:
+        for a in range(-20, 20):
+            for b in range(-20, 20):
+                for c in range(-20, 20):
+                    solution = diophantine(a, b, c)
+
+                    if solution is None:
+                        if a == 0 and b == 0:
+                            self.assertNotEqual(c, 0)
+                        else:
+                            self.assertNotEqual(c % gcd(a, b), 0)
+                    else:
+                        x, y = solution
+                        self.assertEqual(a*x+b*y, c)
