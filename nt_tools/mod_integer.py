@@ -102,7 +102,8 @@ class ModInteger:
 M = ModInteger
 
 
-def guessIntegerFromModInteger(x: ModInteger):
+def guess_int_from_modint(x: ModInteger):
+    """guesses the smallest magnitude number equivalent to a modint"""
     if x.value * 2 > x.mod:
         return x.value-x.mod
     else:
