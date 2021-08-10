@@ -28,3 +28,16 @@ class TestPrimes(unittest.TestCase):
 
         with self.assertRaises(Exception):
             is_prime(-1)
+
+
+    def test_primes_in_range(self) -> None:
+        for l in range(-100, 100+1):
+            for r in range(-100, 100+1):
+                i = l
+                primes = []
+                while i < r:
+                    if self.brute_is_prime(i):
+                        primes.append(i)
+                    i += 1
+
+                self.assertEqual(primes, primes_in_range(l, r))
