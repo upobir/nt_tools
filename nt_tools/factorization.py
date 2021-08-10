@@ -83,3 +83,40 @@ def factorize_exponent(n: int) -> List[Tuple[int, int]]:
         result.append((prime, exponent))
 
     return result
+
+def divisors(n: int) -> List[int]:
+    """function that returns a list of divisors fo n"""
+    if n <= 0:
+        raise Exception(f"'{n}' is non positive")
+
+    factors: List[Tuple[int, int]] = factorize_exponent(n)
+
+    result: List[int] = _divisor_generator(factors).generate()
+
+    result.sort()
+
+    return result
+
+class _divisor_generator:
+    """intenal class that takes a list of (prime, exponent) and generates all divisors"""
+    def __init__(self, factors: List[Tuple[int, int]]) -> None:
+        self.factors: List[Tuple[int, int]] = factors
+
+    def generate(self) -> List[int]:
+        self.result: list[int] = []
+
+        self.recursive_generate()
+
+        self.result.sort()
+        return self.result
+
+    def recursive_generate(self, pos: int = 0, divisor: int = 1) -> None:
+        if(pos == len(self.factors)):
+            self.result.append(divisor)
+            return
+
+        prime, exponent = self.factors[pos]
+
+        for _ in range(exponent+1):
+            self.recursive_generate(pos+1, divisor)
+            divisor *= prime
