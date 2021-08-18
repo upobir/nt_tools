@@ -1,5 +1,5 @@
-from typing import List, Optional
-from math import sqrt, ceil, log
+from typing import List, Optional, Dict
+from math import sqrt, ceil
 from random import randint
 from nt_tools.mod_integer import M
 
@@ -77,12 +77,22 @@ def random_prime_in_range(L: int, R: int, max_iter: Optional[int] = None) -> Opt
         return None
 
     if max_iter is None:
-        max_iter = int(log(R)*10)
+        max_iter = R-L
+    elif max_iter < 0:
+        raise Exception(f"'{max_iter}' is negative")
+    else:
+        max_iter = min(max_iter, R-L)
 
-
+    R -= 1
+    swapped: Dict[int, int] = {}
     for _ in range(max_iter):
-        candidate: int = randint(L, R-1)
+        candidate_index: int = randint(L, R)
+        candidate: int = swapped.get(candidate_index, candidate_index)
         if is_prime(candidate):
             return candidate
+        elif candidate_index != R:
+            swapped[candidate_index] = swapped.get(R, R)
+
+        R -= 1
     
     return None
