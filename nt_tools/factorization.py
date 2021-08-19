@@ -103,7 +103,7 @@ class _divisor_generator:
         self.factors: List[Tuple[int, int]] = factors
 
     def generate(self) -> List[int]:
-        self.result: list[int] = []
+        self.result: List[int] = []
 
         self.recursive_generate()
 
