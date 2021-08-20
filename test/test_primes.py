@@ -1,12 +1,11 @@
 import unittest
 from nt_tools.primes import *
 
-# TODO memoize brute tests
-
 class TestPrimes(unittest.TestCase):
     def setUp(self) ->None:
-        __doc__
-        pass
+        self.is_prime_table = [False]*(100+1)
+        for i in range(100+1):
+            self.is_prime_table[i] = self.brute_is_prime(i)
 
     def tearDown(self) -> None:
         __doc__
@@ -38,10 +37,10 @@ class TestPrimes(unittest.TestCase):
         """tests primes_in_range"""
         for l in range(-10, 100+1):
             for r in range(-10, 100+1):
-                i = l
+                i = max(0, l)
                 primes = []
                 while i < r:
-                    if self.brute_is_prime(i):
+                    if self.is_prime_table[i]:
                         primes.append(i)
                     i += 1
 
@@ -54,15 +53,15 @@ class TestPrimes(unittest.TestCase):
                 x = random_prime_in_range(l, r)
 
                 if x is None:
-                    i = l
+                    i = max(0, l)
                     while i < r:
-                        self.assertFalse(self.brute_is_prime(i), f"{l}, {r}")
+                        self.assertFalse(self.is_prime_table[i], f"{l}, {r}")
                         i += 1
                 else:
                     self.assertTrue(x < r)
                     self.assertTrue(l <= x)
 
-                    self.assertTrue(self.brute_is_prime(x))
+                    self.assertTrue(self.is_prime_table[x])
 
         for i in range(10):
             random_prime_in_range(1, 10, i)
