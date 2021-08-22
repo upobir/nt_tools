@@ -1,3 +1,4 @@
+from nt_tools.exponentiation import get_smallest_primitive_root
 import nt_tools
 
 # mod_integer
@@ -76,5 +77,8 @@ print("exponentiation")
 print(nt_tools.order(nt_tools.M(5, 96)))
 print(nt_tools.is_quadratic_residue(nt_tools.M(-1, 10)))
 print(nt_tools.has_primitive_root(50))
+print(nt_tools.get_random_primitive_root(50))
+print(nt_tools.get_smallest_primitive_root(50))
+print(nt_tools.get_all_primitive_roots(50))
 
 print()

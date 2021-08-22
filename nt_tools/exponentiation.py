@@ -1,8 +1,9 @@
 from nt_tools.mod_integer import ModInteger, M
 from nt_tools.arithmetic_functions import phi
 from nt_tools.factorization import factorize_exponent
-from typing import Optional
+from typing import Optional, Dict, List
 from math import exp, gcd
+from random import randint
 
 def order(x: ModInteger, candidate: Optional[int] = None) -> int:
     """computes multiplicative order of mod intger (x, mod), optionally a candidate can be provided such that x ** candidate = 1 modulo mod"""
@@ -68,6 +69,7 @@ def _is_quadratic_residue_mod_power_of_odd_prime(value: int, prime: int, exponen
     return (M(value, prime) ** ((prime-1)//2)).value == 1
 
 def has_primitive_root(mod: int) -> bool:
+    """cheks if there is a primitive modulo mod"""
     if mod == 1:
         return False
     elif mod == 2 or mod == 4:
@@ -80,3 +82,59 @@ def has_primitive_root(mod: int) -> bool:
         return False
 
     return len(factorize_exponent(mod)) == 1
+
+def get_smallest_primitive_root(mod: int) -> Optional[int]:
+    """returns smallest primitive root modulo mod, or none if there aren't any"""
+
+    if not has_primitive_root(mod):
+        return None
+
+    candidate: ModInteger = M(1, mod)
+    phi_val: int = phi(mod)
+    while True:
+        if _is_primitive_root(candidate, phi_val):
+            return candidate.value
+        candidate.value += 1
+
+
+def get_random_primitive_root(mod: int) -> Optional[int]:
+    """returns a random primitive root modulo mod, or none if there aren't any"""
+
+    if not has_primitive_root(mod):
+        return None
+
+    swapped: Dict[int, int] = {}
+    phi_val: int = phi(mod)
+    while True:
+        candidate_index: int = randint(1, mod-1)
+        candidate: int = swapped.get(candidate_index, candidate_index)
+        if _is_primitive_root(M(candidate, mod), phi_val):
+            return candidate
+
+def _is_primitive_root(x: ModInteger, phi_value: Optional[int] = None) -> bool:
+    """internal functiont test if x is primitive root modulo mod"""
+
+    if gcd(x.value, x.mod) != 1:
+        return False
+    return order(x, phi_value) == phi_value
+
+def get_all_primitive_roots(mod: int) -> List[int]:
+    """returns list of all primitive roots of a mod"""
+
+    root: Optional[int] = get_random_primitive_root(mod)
+
+    if root is None:
+        return list()
+    
+    root_m: ModInteger = M(root, mod)
+    phi_value: int = phi(mod)
+
+    roots: List[int] = [root_m.value]
+
+    for i in range(2, phi_value):
+        root_m *= root
+
+        if gcd(i, phi_value) == 1:
+            roots.append(root_m.value)
+
+    return sorted(roots)
