@@ -6,6 +6,11 @@ from nt_tools.primes import is_prime
 
 def p_adic(x: int, p: int) -> int:
     """function that returns the p-adic value of x, i.e. maximum exponent of p that divides x"""
+    if x == 0:
+        raise Exception(f"x == 0")
+    if abs(p) < 2:
+        raise Exception(f"'abs({p})' is less than 1")
+
     exponent: int = 0
     while x % p == 0:
         x //= p

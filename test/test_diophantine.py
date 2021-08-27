@@ -40,6 +40,7 @@ class TestDiophantine(unittest.TestCase):
             bezout(0, 0)
 
     def brute_lcm(self, a, b):
+        """brute funtion to find lcm"""
         if a == 0 or b == 0:
             return 0
 
@@ -50,6 +51,7 @@ class TestDiophantine(unittest.TestCase):
         return m
 
     def test_lcm(self) -> None:
+        """test lcm function"""
         for i in range(-10, 10):
             for j in range(-10, 10):
                 if i == 0 and j == 0:
@@ -62,6 +64,7 @@ class TestDiophantine(unittest.TestCase):
             lcm(0, 0)
 
     def test_crt(self) -> None:
+        """test crt function"""
         a = 6
         b = 9
         c = 14
@@ -83,6 +86,7 @@ class TestDiophantine(unittest.TestCase):
                         self.assertTrue(res is None)
 
     def test_diophantine(self) -> None:
+        """test diophantine function"""
         for a in range(-20, 20):
             for b in range(-20, 20):
                 for c in range(-20, 20):

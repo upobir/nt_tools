@@ -38,6 +38,10 @@ class TestModInteger(unittest.TestCase):
         with self.assertRaises(Exception):
             x = M(1, -1)
 
+        M.default_mod = 313
+        x = M(314)
+        self.modint_equal(x, 1, 313)
+
     def test_str_and_repr(self) -> None:
         """test str() and repr()"""
         x: ModInteger

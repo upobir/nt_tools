@@ -3,6 +3,7 @@ from nt_tools.primes import *
 
 class TestPrimes(unittest.TestCase):
     def setUp(self) ->None:
+        __doc__
         self.is_prime_table = [False]*(100+1)
         for i in range(100+1):
             self.is_prime_table[i] = self.brute_is_prime(i)
