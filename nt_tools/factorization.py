@@ -19,11 +19,11 @@ def p_adic(x: int, p: int) -> int:
     return exponent
 
 def pollard_rho(n: int) -> int:
-    """function to return a divisor of n, unless n is prime or 1, the divisor should be proper"""
+    """function to return a divisor of composite n, if n is prime, it will fall in infinite loop"""
     if n <= 0:
         raise Exception(f"'{n}' is non-positive")
 
-    if n < 3:
+    if n <= 3:
         return n
 
     if n % 2 == 0:

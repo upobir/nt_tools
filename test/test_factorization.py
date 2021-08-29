@@ -10,6 +10,16 @@ class TestFactorization(unittest.TestCase):
         __doc__
         pass
 
+    def brute_is_prime(self, x: int) -> bool:
+        """checks if x is prime via brute force"""
+        if x < 2:
+            return False
+
+        for i in range(2, x):
+            if x % i == 0:
+                return False
+        return True
+
     def test_p_adic(self) -> None:
         """test p_adic function"""
 
@@ -38,3 +48,26 @@ class TestFactorization(unittest.TestCase):
         for x, p in exception_data:
             with self.assertRaises(Exception):
                 p_adic(x, p)
+
+    def test_pollard_rho(self):
+        """test pollard rho function"""
+
+        for x in range(1, 100):
+            if self.brute_is_prime(x):
+                continue
+
+            d = pollard_rho(x)
+
+            self.assertEqual(x % d, 0)
+
+            if x != 1:
+                self.assertTrue(x != d)
+                self.assertTrue(x != 1)
+            
+
+        with self.assertRaises(Exception):
+            pollard_rho(0)
+
+        with self.assertRaises(Exception):
+            pollard_rho(-1)
+
