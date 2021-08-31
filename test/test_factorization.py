@@ -1,4 +1,6 @@
 import unittest
+from functools import reduce
+from operator import mul
 from nt_tools.factorization import *
 
 class TestFactorization(unittest.TestCase):
@@ -70,4 +72,16 @@ class TestFactorization(unittest.TestCase):
 
         with self.assertRaises(Exception):
             pollard_rho(-1)
+
+    def test_factorize(self):
+        """test factorization"""
+
+        for x in range(1, 100):
+            f = factorize(x)
+            self.assertEqual(sorted(f), f)
+
+            for p in f:
+                self.assertTrue(self.brute_is_prime(p))
+        
+            self.assertEqual(reduce(mul, f, 1), x)
 
