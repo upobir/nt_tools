@@ -109,3 +109,20 @@ class TestFactorization(unittest.TestCase):
 
         with self.assertRaises(Exception):
             factorize_exponent(-1)
+
+    def test_divisors(self):
+        """test divisors"""
+
+        for x in range(1, 100):
+            d = divisors(x)
+
+            self.assertEqual(d, sorted(d))
+
+            for i in range(1, x+1):
+                self.assertEqual(x % i == 0, i in d)
+
+        with self.assertRaises(Exception):
+            divisors(0)
+
+        with self.assertRaises(Exception):
+            divisors(-1)

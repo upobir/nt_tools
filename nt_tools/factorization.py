@@ -90,7 +90,7 @@ def factorize_exponent(n: int) -> List[Tuple[int, int]]:
     return result
 
 def divisors(n: int) -> List[int]:
-    """function that returns a list of divisors fo n"""
+    """function that returns a sorted list of divisors fo n"""
     if n <= 0:
         raise Exception(f"'{n}' is non positive")
 
