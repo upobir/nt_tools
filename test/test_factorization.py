@@ -85,3 +85,27 @@ class TestFactorization(unittest.TestCase):
         
             self.assertEqual(reduce(mul, f, 1), x)
 
+        with self.assertRaises(Exception):
+            factorize(0)
+
+        with self.assertRaises(Exception):
+            factorize(-1)
+
+    def test_factorize_exponent(self):
+        """test factorize_exponent"""
+        for x in range(1, 100):
+            f = factorize_exponent(x)
+            self.assertEqual(sorted(f), f)
+
+            for p, e in f:
+                self.assertTrue(self.brute_is_prime(p))
+                self.assertTrue(e > 0)
+
+            reductor = lambda val, pair: val * (pair[0] ** pair[1])
+            self.assertEqual(reduce(reductor, f, 1), x)
+        
+        with self.assertRaises(Exception):
+            factorize_exponent(0)
+
+        with self.assertRaises(Exception):
+            factorize_exponent(-1)
